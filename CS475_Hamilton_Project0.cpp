@@ -16,7 +16,8 @@ float B[SIZE];
 float C[SIZE];
 
 // performance function
-void performance(int threads) {
+// ref: https://www.w3schools.com/cpp/cpp_function_param.asp
+float performance(int threads) {
 
         omp_set_num_threads( threads );
 
@@ -39,6 +40,8 @@ void performance(int threads) {
         }
 
         fprintf( stderr, "For %d threads, Peak Performance = %8.2lf MegaMults/Sec\n", threads, maxMegaMults );  
+
+        return maxMegaMults;
 }
 
 int
@@ -58,10 +61,14 @@ main( )
 		B[i] = 2.;
 	}
 
-        performance(NUMT1);      // one thread
-        
-        performance(NUMT2);      // four threads
+        float perf1 = performance(NUMT1);      // one thread
+        float perf2 = performance(NUMT2);      // four threads
 
+        float S = perf2 / perf1;               // speedup value
+        float Fp = (4./3.)*( 1. - (1./S) );
+
+        fprintf( stderr, "Speedup = %4.2lf\n", S);      // print values
+        //fprintf( stderr, "Parallel Fraction = %4.2lf\n", Fp);
         
 	// note: %lf stands for "long float", which is how printf prints a "double"
 	//        %d stands for "decimal integer", not "double"
