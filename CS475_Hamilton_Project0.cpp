@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#define NUMT	         1	// number of threads to use -- do once for 1 and once for 4
+#define NUMT1	        1	// number of threads to use -- do once for 1 and once for 4
+#define NUMT2           4        
 #define SIZE       	16000	// array size -- you get to decide
 #define NUMTRIES        20	// how many times to run the timing to get reliable timing data
 
@@ -14,24 +15,10 @@ float A[SIZE];
 float B[SIZE];
 float C[SIZE];
 
-int
-main( )
-{
-#ifdef   _OPENMP
-	fprintf( stderr, "OpenMP version %d is supported here\n", _OPENMP );
-#else
-	fprintf( stderr, "OpenMP is not supported here\n" );
-	exit( 0 );
-#endif
+// performance function
+void performance(int threads) {
 
-	// inialize the arrays:
-	for( int i = 0; i < SIZE; i++ )
-	{
-		A[i] = 1.;
-		B[i] = 2.;
-	}
-
-        omp_set_num_threads( NUMT );
+        omp_set_num_threads( threads );
 
         double maxMegaMults = 0.;
 
@@ -51,8 +38,31 @@ main( )
                         maxMegaMults = megaMults;
         }
 
-        fprintf( stderr, "For %d threads, Peak Performance = %8.2lf MegaMults/Sec\n", NUMT, maxMegaMults );
+        fprintf( stderr, "For %d threads, Peak Performance = %8.2lf MegaMults/Sec\n", threads, maxMegaMults );  
+}
 
+int
+main( )
+{
+#ifdef   _OPENMP
+	fprintf( stderr, "OpenMP version %d is supported here\n", _OPENMP );
+#else
+	fprintf( stderr, "OpenMP is not supported here\n" );
+	exit( 0 );
+#endif
+
+	// inialize the arrays:
+	for( int i = 0; i < SIZE; i++ )
+	{
+		A[i] = 1.;
+		B[i] = 2.;
+	}
+
+        performance(NUMT1);      // one thread
+        
+        performance(NUMT2);      // four threads
+
+        
 	// note: %lf stands for "long float", which is how printf prints a "double"
 	//        %d stands for "decimal integer", not "double"
 
