@@ -7,7 +7,7 @@
 #include <math.h>
 
 #define NUMT	         1	// number of threads to use -- do once for 1 and once for 4
-#define SIZE       	??	// array size -- you get to decide
+#define SIZE       	16000	// array size -- you get to decide
 #define NUMTRIES        20	// how many times to run the timing to get reliable timing data
 
 float A[SIZE];
