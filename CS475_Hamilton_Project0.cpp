@@ -68,7 +68,7 @@ main( )
         float Fp = (4./3.)*( 1. - (1./S) );
 
         fprintf( stderr, "Speedup = %4.2lf\n", S);      // print values
-        //fprintf( stderr, "Parallel Fraction = %4.2lf\n", Fp);
+        fprintf( stderr, "Parallel Fraction = %4.2lf\n", Fp);
         
 	// note: %lf stands for "long float", which is how printf prints a "double"
 	//        %d stands for "decimal integer", not "double"
