@@ -159,7 +159,7 @@ int main( int argc, char *argv[ ] )
                 numSuccesses = 0;
 
 		// note: the Pin numbers don't need to be declared shared( ) because they are const variables!
-                #pragma omp parallel for default(none) shared(holeaxs,holeays,holears, holebxs,holebys,holebrs, holecxs,holecys,holecrs, stderr) reduction(+:numSuccesses)
+                #pragma omp parallel for default(none) shared(holeaxs,holeays,holears, holebxs,holebys,holebrs, holecxs,holecys,holecrs, stderr, PinAx, PinAy, PinAr, PinBx, PinBy, PinBr, PinCx, PinCy, PinCr) reduction(+:numSuccesses)
                 for( int n = 0; n < NUMTRIALS; n++ )
                 {
                     // randomize everything:
@@ -175,15 +175,15 @@ int main( int argc, char *argv[ ] )
                     float holecy = holecys[n];
                     float holecr = holecrs[n];
 
-                    float da = Length( ????? );
-                    if( ????? )
+                    float da = Length( PinAx - holeax, PinAy - holeay );
+
+                    if( da + PinAr <= holear )
                     {
-                        float db = Length( ????? );
-                        if( ????? )
+                        float db = Length( PinBx - holebx, PinBy - holeby );
+                        if( db + PinBr <= holebr )
                         {
-                            float dc = Length( ????? );
-                            if( ????? )
-                                                numSuccesses++;
+                            float dc = Length( PinCx - holecx, PinCy - holecy );
+                            if( dc + PinCr <= holecr ) numSuccesses++;
                         }
                     }
 
