@@ -47,26 +47,80 @@ float TempFactor()
     return exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   )
 } 
 
-float PrecipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
+float PrecipFactor()
+{
+    return exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
+}
 
 void Rabbits()
 {
+    while( NowYear < 2029 )
+    {
+        // // compute a temporary next-value for this quantity
+        // // based on the current state of the simulation:
+        // . . .
 
+        // // DoneComputing barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+
+        // // DoneAssigning barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+
+        // // DonePrinting barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+    }
 }
 
 void RyeGrass()
 {
+    while( NowYear < 2029 )
+    {
+        // // compute a temporary next-value for this quantity
+        // // based on the current state of the simulation:
+        // . . .
 
+        // // DoneComputing barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+
+        // // DoneAssigning barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+
+        // // DonePrinting barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+    }
 }
 
 void Watcher()
 {
+    while( NowYear < 2029 )
+    {
+        // // compute a temporary next-value for this quantity
+        // // based on the current state of the simulation:
+        // . . .
 
+        // // DoneComputing barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+
+        // // DoneAssigning barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+
+        // // DonePrinting barrier:
+        // WaitBarrier( );	-- or --   #pragma omp barrier;
+        // . . .
+    }
 }
 
 // void MyFarmer()
 // {
-
+        
 // }
 
 void run_simulation(int NowMonth, int nowR, float nowH)
@@ -93,7 +147,7 @@ void run_simulation(int NowMonth, int nowR, float nowH)
         {
             #pragma omp section
             {
-                Rabbits( );
+                Rabbits(nowR, nowH);
             }
 
             #pragma omp section
@@ -125,19 +179,6 @@ void main()
     NowNumRabbits = 1;
     NowHeight =  5.;
 
-    // run the simulation for every month from 
-    // ref: https://www.w3schools.com/cpp/cpp_while_loop.asp
-    while (NowYear <= 2028)
-    {
-        // go through each month
-        // ref: https://www.w3schools.com/cpp/cpp_for_loop.asp
-        for (int i = NowMonth; i < 12; i++)
-        {
-            run_simulation(i, );
-        }
-
-        NowYear ++;     // go to next year
-        
-    }
+    run_simulation(NowMonth, NowNumRabbits, NowHeight);
 
 }
