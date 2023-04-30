@@ -17,7 +17,7 @@ int	NowNumRabbits;		// number of rabbits in the current population
 
 unsigned int seed = 0;  // seed for random number generation
 
-const float RYEGRASS_GROWS_PER_MONTH =		25.0;   // units are in inches
+const float RYEGRASS_GROWS_PER_MONTH =		40.0;   // units are in inches
 const float ONE_RABBITS_EATS_PER_MONTH =	 1.0;   
 
 const float AVG_PRECIP_PER_MONTH =	       12.0;	// average (units are in inches)
@@ -190,7 +190,7 @@ void MyFarmer()
         NowNumRabbits = nextR;
         NowHeight = nextH;
         NowPrecip = nextP;
-        
+
         // DoneFarming barrier:
         #pragma omp barrier
 
