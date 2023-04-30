@@ -137,7 +137,7 @@ void Watcher()
         #pragma omp barrier
 
         // print results
-        fprintf(stderr, "%3d, %4.2f, %3.1f, %3.2lf, %4d, %2d\n", NowNumRabbits, NowHeight, NowTemp, NowPrecip, NowMonth + 1, NowYear);
+        fprintf(stderr, "%3d, %4.2f, %3.1f, %3.2lf, %2d, %4d\n", NowNumRabbits, NowHeight, NowTemp, NowPrecip, NowMonth + 1, NowYear);
         
         if (NowMonth == 11){    // increment month and possibly year
             NowMonth = 0;

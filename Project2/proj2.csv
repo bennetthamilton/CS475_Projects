@@ -1,0 +1,22 @@
+./cs475_hamilton_proj2.cpp: line 1: //: is a directory
+./cs475_hamilton_proj2.cpp: line 2: //: is a directory
+./cs475_hamilton_proj2.cpp: line 3: //: is a directory
+./cs475_hamilton_proj2.cpp: line 10: int: command not found
+./cs475_hamilton_proj2.cpp: line 10: //: is a directory
+./cs475_hamilton_proj2.cpp: line 11: int: command not found
+./cs475_hamilton_proj2.cpp: line 11: //: is a directory
+./cs475_hamilton_proj2.cpp: line 13: float: command not found
+./cs475_hamilton_proj2.cpp: line 13: //: is a directory
+./cs475_hamilton_proj2.cpp: line 14: float: command not found
+./cs475_hamilton_proj2.cpp: line 14: //: is a directory
+./cs475_hamilton_proj2.cpp: line 15: float: command not found
+./cs475_hamilton_proj2.cpp: line 15: //: is a directory
+./cs475_hamilton_proj2.cpp: line 16: int: command not found
+./cs475_hamilton_proj2.cpp: line 16: //: is a directory
+./cs475_hamilton_proj2.cpp: line 18: unsigned: command not found
+./cs475_hamilton_proj2.cpp: line 18: //: is a directory
+./cs475_hamilton_proj2.cpp: line 20: const: command not found
+./cs475_hamilton_proj2.cpp: line 20: //: is a directory
+./cs475_hamilton_proj2.cpp: line 21: const: command not found
+./cs475_hamilton_proj2.cpp: line 23: syntax error near unexpected token `('
+./cs475_hamilton_proj2.cpp: line 23: `const float AVG_PRECIP_PER_MONTH =	       12.0;	// average (units are in inches)'
