@@ -196,7 +196,7 @@ void RunSimulation()
                 // to allow any of them to get past here
 }
 
-void main()
+int main()
 {
     
     // starting date and time:
