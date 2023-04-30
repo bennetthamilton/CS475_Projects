@@ -53,6 +53,19 @@ float PrecipFactor(float NowPrecip)
     return exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
 }
 
+void CalcEnvironment()
+{
+    float ang = (  30.*(float)NowMonth + 15.  ) * ( M_PI / 180. );
+
+    float temp = AVG_TEMP - AMP_TEMP * cos( ang );
+    NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
+
+    float precip = AVG_PRECIP_PER_MONTH + AMP_PRECIP_PER_MONTH * sin( ang );
+    NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
+
+    if( NowPrecip < 0. ) NowPrecip = 0.;
+}
+
 void Rabbits()
 {
     while( NowYear < 2029 )
@@ -123,8 +136,17 @@ void Watcher()
         #pragma omp barrier;
 
         // print results
-        // increment time
-        // calculate environmental parameters
+        fprintf(stderr, "%3d, %4.2f, %3.1f, %3.2lf\n", NowNumRabbits, NowHeight, NowTemp, NowPrecip);
+        
+        if (NowMonth == 11){    // increment month
+            NowMonth = 0;
+        } 
+        else {
+            NowMonth ++;
+        }
+       
+        NowYear ++;             // increment year
+        CalcEnvironment();      // calculate environmental parameters
 
         // DonePrinting barrier:
         #pragma omp barrier;
@@ -136,17 +158,10 @@ void Watcher()
         
 // }
 
-void run_simulation(int NowMonth, int nowR, float nowH)
+void RunSimulation()
 {
-    float ang = (  30.*(float)NowMonth + 15.  ) * ( M_PI / 180. );
 
-    float temp = AVG_TEMP - AMP_TEMP * cos( ang );
-    NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
-
-    float precip = AVG_PRECIP_PER_MONTH + AMP_PRECIP_PER_MONTH * sin( ang );
-    NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
-
-    if( NowPrecip < 0. ) NowPrecip = 0.;
+    CalcEnvironment();
 
     #ifdef _OPENMP
         //fprintf( stderr, "OpenMP is supported -- version = %d\n", _OPENMP );
@@ -192,6 +207,6 @@ void main()
     NowNumRabbits = 1;
     NowHeight =  5.;
 
-    run_simulation(NowMonth, NowNumRabbits, NowHeight);
+    RunSimulation();
 
 }
