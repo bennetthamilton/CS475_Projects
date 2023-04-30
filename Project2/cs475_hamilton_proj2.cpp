@@ -165,10 +165,11 @@ void MyFarmer()
         float nextH = NowHeight;
         float nextP = NowPrecip;
         
-        if (NowHeight < 10) nextP += 5;     // the farmer waters the rye grass field when its low
-        if (NowHeight > 100) nextR += 2;    // and breeds more rabbits when the grass is too tall
-        if (NowNumRabbits == 2) nextR ++;   // and breeds more rabbits when there is only two left
-        if (NowNumRabbits >= 11) nextR --;  // and sells rabbits when there are too many
+        if (NowHeight < 10) nextP += 5;       // the farmer waters the rye grass field when its low
+        if (NowHeight > 100) nextR += 2;      // and breeds more rabbits when the grass is too tall
+        if (NowNumRabbits == 2) nextR ++;     // and breeds more rabbits when there is only two left
+        if (NowNumRabbits >= 11) nextR --;    // and sells one rabbit when there are too many
+        if (NowNumRabbits >= 15) nextR -= 4;  // and sells even more when there are WAY too many
         
         if( nextR < 0 ) nextR = 0;
         if( nextH < 0 ) nextH = 0;
