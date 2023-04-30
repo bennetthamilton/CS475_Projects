@@ -165,10 +165,10 @@ void MyFarmer()
         float nextH = NowHeight;
         float nextP = NowPrecip;
         
-        if (NowHeight < 10) nextP += 5;       // the farmer waters the rye grass field when its low
-        if (NowHeight > 75) nextH -= 25;      // and cuts the grass when it gets too tall
-        if (NowNumRabbits == 2) nextR += 4;   // and breeds more rabbits when there is only two left
-        if (NowNumRabbits >= 15) nextR -= 5;  // and sells even more when there are WAY too many
+        if (NowHeight < 10) nextP += 10;                         // the farmer waters the rye grass field when its low
+        if (NowHeight >= 75) nextH = 10;                         // and cuts the grass when it gets too tall
+        if (NowNumRabbits <= 2 and NowHeight > 50) nextR += 4;   // and breeds more rabbits when there is only two left
+        if (NowNumRabbits >= 15) nextR = nextR / 2;              // and sells rabbits when there are WAY too many
         
         if( nextR < 0 ) nextR = 0;
         if( nextH < 0 ) nextH = 0;
@@ -215,12 +215,12 @@ void RunSimulation()
 
             #pragma omp section
             {
-                Watcher( );
+                MyFarmer( );
             }
 
             #pragma omp section
             {
-                MyFarmer( );	
+                Watcher( );	
             }
         }       // implied barrier -- all functions must return in order
                 // to allow any of them to get past here
