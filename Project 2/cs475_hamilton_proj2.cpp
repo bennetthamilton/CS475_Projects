@@ -14,6 +14,7 @@ float	NowPrecip;		// inches of rain per month
 float	NowTemp;		// temperature this month
 float	NowHeight;		// rye grass height in inches
 int	NowNumRabbits;		// number of rabbits in the current population
+
 unsigned int seed = 0;  // seed for random number generation
 
 const float RYEGRASS_GROWS_PER_MONTH =		20.0;   // units are in inches
@@ -42,12 +43,12 @@ float Sqr( float x )
     return x*x;
 }
 
-float TempFactor()
+float TempFactor(float NowTemp)
 {
-    return exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   )
+    return exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   );
 } 
 
-float PrecipFactor()
+float PrecipFactor(float NowPrecip)
 {
     return exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
 }
@@ -56,21 +57,30 @@ void Rabbits()
 {
     while( NowYear < 2029 )
     {
-        // // compute a temporary next-value for this quantity
-        // // based on the current state of the simulation:
-        // . . .
+        // compute a temporary next-value for this quantity
+        // based on the current state of the simulation: 
 
-        // // DoneComputing barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        int nextNumRabbits = NowNumRabbits;
+        int carryingCapacity = (int)( NowHeight );
+        if( nextNumRabbits < carryingCapacity )
+                nextNumRabbits++;
+        else
+                if( nextNumRabbits > carryingCapacity )
+                        nextNumRabbits--;
 
-        // // DoneAssigning barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        if( nextNumRabbits < 0 )
+                nextNumRabbits = 0;
 
-        // // DonePrinting barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        // DoneComputing barrier:
+        #pragma omp barrier;
+
+        NowNumRabbits = nextNumRabbits;
+
+        // DoneAssigning barrier:
+        #pragma omp barrier;
+
+        // DonePrinting barrier:
+        #pragma omp barrier;
     }
 }
 
@@ -78,21 +88,26 @@ void RyeGrass()
 {
     while( NowYear < 2029 )
     {
-        // // compute a temporary next-value for this quantity
-        // // based on the current state of the simulation:
-        // . . .
+        // compute a temporary next-value for this quantity
+        // based on the current state of the simulation: 
 
-        // // DoneComputing barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        float tempFactor = TempFactor(NowTemp);
+        float precipFactor = PrecipFactor(NowPrecip);
 
-        // // DoneAssigning barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+         float nextHeight = NowHeight;
+        nextHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
+        nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
 
-        // // DonePrinting barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        // DoneComputing barrier:
+        #pragma omp barrier;
+
+        NowHeight = nextHeight;
+
+        // DoneAssigning barrier:
+        #pragma omp barrier;
+
+        // DonePrinting barrier:
+        #pragma omp barrier;
     }
 }
 
@@ -100,21 +115,19 @@ void Watcher()
 {
     while( NowYear < 2029 )
     {
-        // // compute a temporary next-value for this quantity
-        // // based on the current state of the simulation:
-        // . . .
 
-        // // DoneComputing barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        // DoneComputing barrier:
+        #pragma omp barrier;
 
-        // // DoneAssigning barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        // DoneAssigning barrier:
+        #pragma omp barrier;
 
-        // // DonePrinting barrier:
-        // WaitBarrier( );	-- or --   #pragma omp barrier;
-        // . . .
+        // print results
+        // increment time
+        // calculate environmental parameters
+
+        // DonePrinting barrier:
+        #pragma omp barrier;
     }
 }
 
@@ -147,7 +160,7 @@ void run_simulation(int NowMonth, int nowR, float nowH)
         {
             #pragma omp section
             {
-                Rabbits(nowR, nowH);
+                Rabbits();
             }
 
             #pragma omp section
