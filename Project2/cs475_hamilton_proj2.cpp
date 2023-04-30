@@ -91,6 +91,9 @@ void Rabbits()
         // DoneAssigning barrier:
         #pragma omp barrier
 
+        // DoneFarming barrier:
+        #pragma omp barrier
+
         // DonePrinting barrier:
         #pragma omp barrier
     }
@@ -120,6 +123,9 @@ void RyeGrass()
         // DoneAssigning barrier:
         #pragma omp barrier
 
+        // DoneFarming barrier:
+        #pragma omp barrier
+
         // DonePrinting barrier:
         #pragma omp barrier
     }
@@ -134,6 +140,9 @@ void Watcher()
         #pragma omp barrier
 
         // DoneAssigning barrier:
+        #pragma omp barrier
+
+        // DoneFarming barrier:
         #pragma omp barrier
 
         // print results
@@ -161,6 +170,12 @@ void MyFarmer()
         // compute a temporary next-value for this quantity
         // based on the current state of the simulation: 
 
+        // DoneComputing barrier:
+        
+
+        // DoneAssigning barrier:
+        #pragma omp barrier
+
         int nextR = NowNumRabbits;
         float nextH = NowHeight;
         float nextP = NowPrecip;
@@ -172,15 +187,11 @@ void MyFarmer()
         
         if( nextR < 0 ) nextR = 0;
         if( nextH < 0 ) nextH = 0;
-
-        // DoneComputing barrier:
-        #pragma omp barrier
-
         NowNumRabbits = nextR;
         NowHeight = nextH;
         NowPrecip = nextP;
-
-        // DoneAssigning barrier:
+        
+        // DoneFarming barrier:
         #pragma omp barrier
 
         // DonePrinting barrier:
