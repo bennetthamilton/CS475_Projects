@@ -75,14 +75,14 @@ void Rabbits()
 
         int nextNumRabbits = NowNumRabbits;
         int carryingCapacity = (int)( NowHeight );
+
         if( nextNumRabbits < carryingCapacity )
-                nextNumRabbits++;
-        else
-                if( nextNumRabbits > carryingCapacity )
-                        nextNumRabbits--;
+            nextNumRabbits++;
+        else if ( nextNumRabbits > carryingCapacity )
+            nextNumRabbits--;
 
         if( nextNumRabbits < 0 )
-                nextNumRabbits = 0;
+            nextNumRabbits = 0;
 
         // DoneComputing barrier:
         #pragma omp barrier
@@ -136,16 +136,16 @@ void Watcher()
         #pragma omp barrier
 
         // print results
-        fprintf(stderr, "%3d, %4.2f, %3.1f, %3.2lf\n", NowNumRabbits, NowHeight, NowTemp, NowPrecip);
+        fprintf(stderr, "%3d, %4.2f, %3.1f, %3.2lf, %4d, %2d\n", NowNumRabbits, NowHeight, NowTemp, NowPrecip, NowMonth + 1, NowYear);
         
-        if (NowMonth == 11){    // increment month
+        if (NowMonth == 11){    // increment month and possibly year
             NowMonth = 0;
+            NowYear ++;
         } 
         else {
             NowMonth ++;
         }
-       
-        NowYear ++;             // increment year
+
         CalcEnvironment();      // calculate environmental parameters
 
         // DonePrinting barrier:
@@ -175,7 +175,7 @@ void RunSimulation()
         {
             #pragma omp section
             {
-                Rabbits();
+                Rabbits( );
             }
 
             #pragma omp section
@@ -188,10 +188,10 @@ void RunSimulation()
                 Watcher( );
             }
 
-            #pragma omp section
-            {
-                //MyFarmer( );	
-            }
+            // #pragma omp section
+            // {
+            //     //MyFarmer( );	
+            // }
         }       // implied barrier -- all functions must return in order
                 // to allow any of them to get past here
 }
