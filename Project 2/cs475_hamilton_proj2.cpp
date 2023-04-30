@@ -85,15 +85,15 @@ void Rabbits()
                 nextNumRabbits = 0;
 
         // DoneComputing barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
 
         NowNumRabbits = nextNumRabbits;
 
         // DoneAssigning barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
 
         // DonePrinting barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
     }
 }
 
@@ -112,15 +112,15 @@ void RyeGrass()
         nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
 
         // DoneComputing barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
 
         NowHeight = nextHeight;
 
         // DoneAssigning barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
 
         // DonePrinting barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
     }
 }
 
@@ -130,10 +130,10 @@ void Watcher()
     {
 
         // DoneComputing barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
 
         // DoneAssigning barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
 
         // print results
         fprintf(stderr, "%3d, %4.2f, %3.1f, %3.2lf\n", NowNumRabbits, NowHeight, NowTemp, NowPrecip);
@@ -149,7 +149,7 @@ void Watcher()
         CalcEnvironment();      // calculate environmental parameters
 
         // DonePrinting barrier:
-        #pragma omp barrier;
+        #pragma omp barrier
     }
 }
 
