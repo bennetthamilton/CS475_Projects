@@ -17,7 +17,7 @@ int	NowNumRabbits;		// number of rabbits in the current population
 
 unsigned int seed = 0;  // seed for random number generation
 
-const float RYEGRASS_GROWS_PER_MONTH =		20.0;   // units are in inches
+const float RYEGRASS_GROWS_PER_MONTH =		50.0;   // units are in inches
 const float ONE_RABBITS_EATS_PER_MONTH =	 1.0;   
 
 const float AVG_PRECIP_PER_MONTH =	       12.0;	// average (units are in inches)
@@ -154,15 +154,44 @@ void Watcher()
     }
 }
 
-// void MyFarmer()
-// {
+void MyFarmer()
+{
+      while( NowYear < 2029 )
+    {
+        // compute a temporary next-value for this quantity
+        // based on the current state of the simulation: 
+
+        int nextR = NowNumRabbits;
+        float nextH = NowHeight;
+        float nextP = NowPrecip;
         
-// }
+        if (NowHeight < 10) nextP += 5;     // the farmer waters the rye grass field when its low
+        if (NowHeight > 100) nextR += 2;    // and breeds more rabbits when the grass is too tall
+        if (NowNumRabbits == 2) nextR ++;   // and breeds more rabbits when there is only two left
+        if (NowNumRabbits >= 11) nextR --;  // and sells rabbits when there are too many
+        
+        if( nextR < 0 ) nextR = 0;
+        if( nextH < 0 ) nextH = 0;
+
+        // DoneComputing barrier:
+        #pragma omp barrier
+
+        NowNumRabbits = nextR;
+        NowHeight = nextH;
+        NowPrecip = nextP;
+
+        // DoneAssigning barrier:
+        #pragma omp barrier
+
+        // DonePrinting barrier:
+        #pragma omp barrier
+    }
+}
 
 void RunSimulation()
 {
 
-    CalcEnvironment();
+    CalcEnvironment();      // calculate starting environmental factors
 
     #ifdef _OPENMP
         //fprintf( stderr, "OpenMP is supported -- version = %d\n", _OPENMP );
@@ -171,7 +200,7 @@ void RunSimulation()
             return;
     #endif
 
-        omp_set_num_threads( 3 );	// same as # of sections 
+        omp_set_num_threads( 4 );	// same as # of sections 
         #pragma omp parallel sections 
         {
             #pragma omp section
@@ -189,10 +218,10 @@ void RunSimulation()
                 Watcher( );
             }
 
-            // #pragma omp section
-            // {
-            //     //MyFarmer( );	
-            // }
+            #pragma omp section
+            {
+                MyFarmer( );	
+            }
         }       // implied barrier -- all functions must return in order
                 // to allow any of them to get past here
 }
