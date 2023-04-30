@@ -81,8 +81,7 @@ void Rabbits()
         else if ( nextNumRabbits > carryingCapacity )
             nextNumRabbits--;
 
-        if( nextNumRabbits < 0 )
-            nextNumRabbits = 0;
+        if( nextNumRabbits < 0 ) nextNumRabbits = 0;
 
         // DoneComputing barrier:
         #pragma omp barrier
@@ -110,6 +109,8 @@ void RyeGrass()
          float nextHeight = NowHeight;
         nextHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
         nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
+
+        if( nextHeight < 0 ) nextHeight = 0;
 
         // DoneComputing barrier:
         #pragma omp barrier
