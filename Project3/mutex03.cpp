@@ -7,7 +7,7 @@
 #define FAILED			(-999)
 
 #ifndef NUMN
-#define NUMN			32768
+#define NUMN			6000
 #endif
 
 #ifndef USE_MUTEX
@@ -26,19 +26,22 @@ int		NumPopErrors;
 
 omp_lock_t	Lock;
 
-
+// ref: https://stackoverflow.com/questions/2396430/how-to-use-lock-in-openmp
 
 void
 Push( int n )
 {
+	if ( USE_MUTEX ) omp_set_lock(&Lock);
 	StackPtr++;
 	Stack[StackPtr] = n;
+	if ( USE_MUTEX ) omp_unset_lock(&Lock);
 }
 
 
 int
 Pop( )
 {
+	if ( USE_MUTEX ) omp_set_lock(&Lock);
 	// if the stack is empty, give the Push( ) function a chance to put something on the stack:
 	int t = 0;
 	while( StackPtr < 0  &&  t < TIMEOUT )
@@ -46,10 +49,12 @@ Pop( )
 
 	// if there is nothing to pop, return;
 	if( StackPtr < 0 )
+		if ( USE_MUTEX ) omp_unset_lock(&Lock);
 		return FAILED;
 
 	int n = Stack[StackPtr];
 	StackPtr--;
+	if ( USE_MUTEX ) omp_unset_lock(&Lock);
 
 	WasPopped[n] = true;
 	return n;
@@ -76,7 +81,6 @@ PopAll( )
 }
 
 
-
 int
 main( int argc, char *argv[ ] )
 {
@@ -92,6 +96,8 @@ main( int argc, char *argv[ ] )
 	}
 
 	omp_set_num_threads( 2 );
+
+	omp_init_lock( &Lock );   // initialize lock
 
 	double time0 = omp_get_wtime( );
 	#pragma omp parallel sections
@@ -121,6 +127,8 @@ main( int argc, char *argv[ ] )
 
 	fprintf( stderr, "NUMN = %6d , USE_MUTEX = %s , NumPopErrors = %5d = %6.2f%% , Elapsed time = %9.2lf microseconds\n",
 		NUMN, useMutexString, NumPopErrors, 100.*(float)NumPopErrors/(float)NUMN, 1000000.*(time1-time0) );
+
+	omp_destroy_lock(&Lock);	// destroy lock after running programm
 
 	return 0;
 }
