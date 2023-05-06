@@ -7,7 +7,7 @@
 #define FAILED			(-999)
 
 #ifndef NUMN
-#define NUMN			6000
+#define NUMN			2000
 #endif
 
 #ifndef USE_MUTEX
@@ -49,7 +49,6 @@ Pop( )
 
 	// if there is nothing to pop, return;
 	if( StackPtr < 0 )
-		if ( USE_MUTEX ) omp_unset_lock(&Lock);
 		return FAILED;
 
 	int n = Stack[StackPtr];
@@ -87,6 +86,7 @@ main( int argc, char *argv[ ] )
 #ifndef _OPENMP
 	fprintf( stderr, "OpenMP is not supported here.\n" );
 	return 1;
+
 #endif
 
 	// this array is here to be sure all the pops actually happened:
@@ -97,7 +97,7 @@ main( int argc, char *argv[ ] )
 
 	omp_set_num_threads( 2 );
 
-	omp_init_lock( &Lock );   // initialize lock
+	if ( USE_MUTEX ) omp_init_lock( &Lock );   // initialize lock
 
 	double time0 = omp_get_wtime( );
 	#pragma omp parallel sections
@@ -123,12 +123,12 @@ main( int argc, char *argv[ ] )
 
 	char *useMutexString = (char *)"false";
 	if( USE_MUTEX )
-		useMutexString = (char *)" true";
+		useMutexString = (char *)"true";
 
 	fprintf( stderr, "NUMN = %6d , USE_MUTEX = %s , NumPopErrors = %5d = %6.2f%% , Elapsed time = %9.2lf microseconds\n",
 		NUMN, useMutexString, NumPopErrors, 100.*(float)NumPopErrors/(float)NUMN, 1000000.*(time1-time0) );
 
-	omp_destroy_lock(&Lock);	// destroy lock after running programm
+	if ( USE_MUTEX ) omp_destroy_lock(&Lock);	// destroy lock after running programm
 
 	return 0;
 }
