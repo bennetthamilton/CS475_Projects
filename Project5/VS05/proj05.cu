@@ -168,26 +168,26 @@ MonteCarlo(
         dsuccesses[gid] = 0;
 
 	// randomize everything:
-	hholeaxs[gid] = Ranf(HoleAx - HoleAxPM, HoleAx + HoleAxPM);
-	hholeays[gid] = Ranf(HoleAy - HoleAyPM, HoleAy + HoleAyPM);
-	hholears[gid] = Ranf(HoleAr - HoleArPM, HoleAr + HoleArPM);
+	float holeax = dholeaxs[gid];
+	float holeay = dholeays[gid];
+	float holear = dholears[gid];
 
-	hholebxs[gid] = Ranf(HoleBx - HoleBxPM, HoleBx + HoleBxPM);
-	hholebys[gid] = Ranf(HoleBy - HoleByPM, HoleBy + HoleByPM);
-	hholebrs[gid] = Ranf(HoleBr - HoleBrPM, HoleBr + HoleBrPM);
+	float holebx = dholebxs[gid];
+	float holeby = dholebys[gid];
+	float holebr = dholebrs[gid];
 
-	hholecxs[gid] = Ranf(HoleCx - HoleCxPM, HoleCx + HoleCxPM);
-	hholecys[gid] = Ranf(HoleCy - HoleCyPM, HoleCy + HoleCyPM);
-	hholecrs[gid] = Ranf(HoleCr - HoleCrPM, HoleCr + HoleCrPM);
+	float holecx = dholecxs[gid];
+	float holecy = dholecys[gid];
+	float holecr = dholecrs[gid];
 
-	float da = Length( PinAx - holeaxs[gid], PinAy - holeays[gid] );
-	if( da + PinAr <= holears[gid] )
+	float da = Length( PinAx - holeax, PinAy - holeay );
+	if( da + PinAr <= holear )
 	{
-		float db = Length( PinBx - holebxs[gid], PinBy - holebys[gid] );
-		if( db + PinBr <= holebrs[gid] )
+		float db = Length( PinBx - holebx, PinBy - holeby );
+		if( db + PinBr <= holebr )
 		{
-			float dc = Length( PinCx - holecxs[gid], PinCy - holecys[gid] );
-			if( dc + PinCr <= holecrs[gid] )
+			float dc = Length( PinCx - holecx, PinCy - holecy );
+			if( dc + PinCr <= holecr )
         		dsuccesses[gid] = 1;
 		}
 	}
@@ -210,7 +210,7 @@ void run( int numt, int numtrials)
         float *hholecys  = new float [numtrials];
         float *hholecrs  = new float [numtrials];
 
-	int *hsuccesses = new int [numtrials];
+		int *hsuccesses = new int [numtrials];
 
         // fill the random-value arrays:
         for( int n = 0; n < numtrials; n++ )
