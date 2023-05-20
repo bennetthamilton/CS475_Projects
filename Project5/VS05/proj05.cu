@@ -340,7 +340,6 @@ void run( int numt, int numtrials)
 
 	CudaCheckError( );
 
-	return 0;
 }
 
 int
