@@ -348,14 +348,19 @@ main( int argc, char *argv[ ] )
     int numThreads[] = {8, 32, 64, 128};
     int numTrials[] = {1024, 4096, 16384, 65536, 262144, 1048576, 2097152};
 
-    // for( int thread : numThreads )
-    // {
-    //     for( int trials : numTrials)
-    //     {
-    //         run(thread, trials);
-    //     }
-    // } 
-	run(numThreads[0], numTrials[0]);
+	// find length of arrays
+	// ref: https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
+	int n1 = sizeof(numThreads) / sizeof(int)
+	int n2 = sizeof(numTrials) / sizeof(int)
+
+    for( i = 0; i < n1; i++ )
+    {
+        for( j = 0; j < n1; j++ )
+        {
+            run(numThread[i], numTrials[j]);
+        }
+    } 
+
 }
 
 // /usr/local/apps/cuda/cuda-10.1/bin/nvcc -I/usr/local/apps/cuda/cuda-10.1/samples/common/inc/   -o proj05  proj05.cu
