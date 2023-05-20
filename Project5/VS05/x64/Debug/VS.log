@@ -1,0 +1,126 @@
+﻿  Compiling CUDA source file proj05.cu...
+  
+  Y:\CUDA\CudaMonteCarloHoles\VS05>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.24.28314\bin\HostX86\x64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\proj05.cu.obj "Y:\CUDA\CudaMonteCarloHoles\VS05\proj05.cu" 
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(171): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(184): warning : parsing restarts here after previous syntax error
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(184): error : expected a ";"
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(230): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(230): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(231): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(231): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(232): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(232): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(234): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(234): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(235): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(235): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(236): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(236): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(238): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(238): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(239): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(239): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(240): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(240): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(242): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(242): error : no instance of overloaded function "cudaMalloc" matches the argument list
+              argument types are: (<error-type>)
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(249): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(249): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(250): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(250): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(251): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(251): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(253): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(253): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(254): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(254): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(255): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(255): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(257): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(257): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(258): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(258): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(259): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(259): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(283): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(283): error : too few arguments in function call
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(296): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(296): error : expected an expression
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(328): warning : variable "dholeaxs" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(328): warning : variable "dholeays" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(328): warning : variable "dholears" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(329): warning : variable "dholebxs" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(329): warning : variable "dholebys" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(329): warning : variable "dholebrs" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(330): warning : variable "dholecxs" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(330): warning : variable "dholecys" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(330): warning : variable "dholecrs" is used before its value is set
+  
+Y:/CUDA/CudaMonteCarloHoles/VS05/proj05.cu(331): warning : variable "dsuccesses" is used before its value is set
+  
+  44 errors detected in the compilation of "C:/Users/mjb/AppData/Local/Temp/tmpxft_00005fc4_00000000-7_proj05.cpp1.ii".
+  proj05.cu
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\BuildCustomizations\CUDA 10.2.targets(764,9): error MSB3721: The command ""C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.24.28314\bin\HostX86\x64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\proj05.cu.obj "Y:\CUDA\CudaMonteCarloHoles\VS05\proj05.cu"" exited with code 1.
