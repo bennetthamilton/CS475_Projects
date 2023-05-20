@@ -353,11 +353,11 @@ main( int argc, char *argv[ ] )
 	int n1 = sizeof(numThreads) / sizeof(int);
 	int n2 = sizeof(numTrials) / sizeof(int);
 
-    for( i = 0; i < n1; i++ )
+    for( int i = 0; i < n1; i++ )
     {
-        for( j = 0; j < n2; j++ )
+        for( int j = 0; j < n2; j++ )
         {
-            run(numThread[i], numTrials[j]);
+            run(numThreads[i], numTrials[j]);
         }
     } 
 
