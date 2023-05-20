@@ -348,13 +348,14 @@ main( int argc, char *argv[ ] )
     int numThreads[] = {8, 32, 64, 128};
     int numTrials[] = {1024, 4096, 16384, 65536, 262144, 1048576, 2097152};
 
-    for( int thread : numThreads )
-    {
-        for( int trials : numTrials)
-        {
-            run(thread, trials);
-        }
-    } 
+    // for( int thread : numThreads )
+    // {
+    //     for( int trials : numTrials)
+    //     {
+    //         run(thread, trials);
+    //     }
+    // } 
+	run(numThreads[0], numTrials[0]);
 }
 
 // /usr/local/apps/cuda/cuda-10.1/bin/nvcc -I/usr/local/apps/cuda/cuda-10.1/samples/common/inc/   -o proj05  proj05.cu
