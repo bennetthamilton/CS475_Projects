@@ -355,7 +355,7 @@ main( int argc, char *argv[ ] )
 
     for( i = 0; i < n1; i++ )
     {
-        for( j = 0; j < n1; j++ )
+        for( j = 0; j < n2; j++ )
         {
             run(numThread[i], numTrials[j]);
         }
