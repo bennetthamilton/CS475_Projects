@@ -350,8 +350,8 @@ main( int argc, char *argv[ ] )
 
 	// find length of arrays
 	// ref: https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
-	int n1 = sizeof(numThreads) / sizeof(int)
-	int n2 = sizeof(numTrials) / sizeof(int)
+	int n1 = sizeof(numThreads) / sizeof(int);
+	int n2 = sizeof(numTrials) / sizeof(int);
 
     for( i = 0; i < n1; i++ )
     {
