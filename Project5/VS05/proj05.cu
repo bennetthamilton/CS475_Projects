@@ -235,17 +235,17 @@ void run( int numt, int numtrials)
         float *dholecxs, *dholecys, *dholecrs;
         int   *dsuccesses;
 
-	cudaMalloc((void**)&dholeaxs, sizeof(float));
-	cudaMalloc((void**)&dholeays, sizeof(float));
-	cudaMalloc((void**)&dholears, sizeof(float));
+	cudaMalloc((void**)&dholeaxs, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholeays, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholears, numtrials * sizeof(float));
 
-	cudaMalloc((void**)&dholebxs, sizeof(float));
-	cudaMalloc((void**)&dholebys, sizeof(float));
-	cudaMalloc((void**)&dholebrs, sizeof(float));
+	cudaMalloc((void**)&dholebxs, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholebys, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholebrs, numtrials * sizeof(float));
 
-	cudaMalloc((void**)&dholecxs, sizeof(float));
-	cudaMalloc((void**)&dholecys, sizeof(float));
-	cudaMalloc((void**)&dholecrs, sizeof(float));
+	cudaMalloc((void**)&dholecxs, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholecys, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholecrs, numtrials * sizeof(float));
 
 	cudaMalloc((void**)&dsuccesses, sizeof(int));
 
@@ -268,10 +268,9 @@ void run( int numt, int numtrials)
 
 	CudaCheckError( );
 
-
 	// setup the execution parameters:
 	dim3 threads(numt, 1, 1 );
-	dim3 grid(numtrials / numt, 1, 1 );
+	dim3 grid(numtrials, 1, 1 );
 
 	// create and start timer
 	cudaDeviceSynchronize( );
@@ -351,18 +350,16 @@ main( int argc, char *argv[ ] )
 	// find length of arrays
 	// ref: https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 	int n1 = sizeof(numThreads) / sizeof(int);
-	int n2 = sizeof(numTrials) / sizeof(int);
+	// int n2 = sizeof(numTrials) / sizeof(int);
 
     for( int i = 0; i < n1; i++ )
     {
-        for( int j = 0; j < n2; j++ )
-        {
-			int numt = numThreads[i];
-            int numtrials = numTrials[j];
+        // for( int j = 0; j < n2; j++ )
+        // {
 
-            run(numt, numtrials);
-        }
-    } 
+            run(numThreads[i], numTrials[0]);
+    //     }
+     } 
 	
 	return 0;
 
