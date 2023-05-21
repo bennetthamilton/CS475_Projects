@@ -29,7 +29,7 @@
 #define NUMBLOCKS	( NUMTRIALS / BLOCKSIZE )
 
 
-//#define CSV
+#define CSV
 
 // the pins; numbers are constants:
 #define PinAx	3.0f
