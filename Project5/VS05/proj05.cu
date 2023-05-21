@@ -355,10 +355,10 @@ main( int argc, char *argv[ ] )
 
     for( int i = 0; i < n1; i++ )
     {
-        for( int j = 0; j < n2; j++ )
-        {
-            run(numThreads[i], numTrials[j]);
-        }
+        // for( int j = 0; j < n2; j++ )
+        // {
+            run(numThreads[i], numTrials[0]);
+        // }
     } 
 
 }
