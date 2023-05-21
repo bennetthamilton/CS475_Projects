@@ -235,19 +235,19 @@ void run( int numt, int numtrials)
         float *dholecxs, *dholecys, *dholecrs;
         int   *dsuccesses;
 
-	cudaMalloc((void**)&dholeaxs, numtrials * sizeof(float));
-	cudaMalloc((void**)&dholeays, numtrials * sizeof(float));
-	cudaMalloc((void**)&dholears, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholeaxs, sizeof(float));
+	cudaMalloc((void**)&dholeays, sizeof(float));
+	cudaMalloc((void**)&dholears, sizeof(float));
 
-	cudaMalloc((void**)&dholebxs, numtrials * sizeof(float));
-	cudaMalloc((void**)&dholebys, numtrials * sizeof(float));
-	cudaMalloc((void**)&dholebrs, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholebxs, sizeof(float));
+	cudaMalloc((void**)&dholebys, sizeof(float));
+	cudaMalloc((void**)&dholebrs, sizeof(float));
 
-	cudaMalloc((void**)&dholecxs, numtrials * sizeof(float));
-	cudaMalloc((void**)&dholecys, numtrials * sizeof(float));
-	cudaMalloc((void**)&dholecrs, numtrials * sizeof(float));
+	cudaMalloc((void**)&dholecxs, sizeof(float));
+	cudaMalloc((void**)&dholecys, sizeof(float));
+	cudaMalloc((void**)&dholecrs, sizeof(float));
 
-	cudaMalloc((void**)&dsuccesses, numtrials * sizeof(int));
+	cudaMalloc((void**)&dsuccesses, sizeof(int));
 
 	CudaCheckError( );
 
@@ -271,7 +271,7 @@ void run( int numt, int numtrials)
 
 	// setup the execution parameters:
 	dim3 threads(numt, 1, 1 );
-	dim3 grid(numtrials, 1, 1 );
+	dim3 grid(numtrials / numt, 1, 1 );
 
 	// create and start timer
 	cudaDeviceSynchronize( );
@@ -355,13 +355,18 @@ main( int argc, char *argv[ ] )
 
     for( int i = 0; i < n1; i++ )
     {
-        // for( int j = 0; j < n2; j++ )
-        // {
-            run(numThreads[i], numTrials[0]);
-        // }
+        for( int j = 0; j < n2; j++ )
+        {
+			int numt = numThreads[i];
+            int numtrials = numTrials[j];
+
+            run(numt, numtrials);
+        }
     } 
+	
+	return 0;
 
 }
 
-// /usr/local/apps/cuda/cuda-10.1/bin/nvcc -I/usr/local/apps/cuda/cuda-10.1/samples/common/inc/   -o proj05  proj05.cu
-// ./proj05
+//  /usr/local/apps/cuda/cuda-10.1/bin/nvcc -I/usr/local/apps/cuda/cuda-10.1/samples/common/inc/   -o proj05  proj05.cu
+//  ./proj05
