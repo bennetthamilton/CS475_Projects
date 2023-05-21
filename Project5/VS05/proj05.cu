@@ -247,7 +247,7 @@ void run( int numt, int numtrials)
 	cudaMalloc((void**)&dholecys, numtrials * sizeof(float));
 	cudaMalloc((void**)&dholecrs, numtrials * sizeof(float));
 
-	cudaMalloc((void**)&dsuccesses, sizeof(int));
+	cudaMalloc((void**)&dsuccesses, numtrials * sizeof(int));
 
 	CudaCheckError( );
 
@@ -268,9 +268,11 @@ void run( int numt, int numtrials)
 
 	CudaCheckError( );
 
+
 	// setup the execution parameters:
+	// ref: CS475 CUDA lecture, slide 15
 	dim3 threads(numt, 1, 1 );
-	dim3 grid(numtrials, 1, 1 );
+	dim3 grid(numtrials / numt, 1, 1 );
 
 	// create and start timer
 	cudaDeviceSynchronize( );
@@ -350,15 +352,14 @@ main( int argc, char *argv[ ] )
 	// find length of arrays
 	// ref: https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 	int n1 = sizeof(numThreads) / sizeof(int);
-	// int n2 = sizeof(numTrials) / sizeof(int);
+	int n2 = sizeof(numTrials) / sizeof(int);
 
     for( int i = 0; i < n1; i++ )
     {
-        // for( int j = 0; j < n2; j++ )
-        // {
-
-            run(numThreads[i], numTrials[0]);
-    //     }
+        for( int j = 0; j < n2; j++ )
+        {
+            run(numThreads[i], numTrials[j]);
+        }
      } 
 	
 	return 0;
