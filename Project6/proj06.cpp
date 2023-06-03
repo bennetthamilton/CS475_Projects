@@ -166,7 +166,7 @@ float			hC[MATW][MATW];
 	clProgramText[fileSize] = '\0';
 	fclose( fp );
 	if( n != fileSize )
-		fprintf( stderr, "Expected to read %d bytes read from '%s' -- actually read %d.\n", fileSize, CL_FILE_NAME, n );
+		fprintf( stderr, "Expected to read %zu bytes read from '%s' -- actually read %zu.\n", fileSize, CL_FILE_NAME, n );
 
 	// ... and create the kernel program:
 
