@@ -15,13 +15,13 @@
 // the matrix-width and the number of work-items per work-group:
 // note: the matrices are actually MATWxMATW and the work group sizes are LOCALSIZExLOCALSIZE:
 
-// #ifndef MATW
-// #define MATW		1024
-// #endif
+#ifndef MATW
+#define MATW		1024
+#endif
 
-// #ifndef LOCALSIZE
-// #define	LOCALSIZE	8
-// #endif
+#ifndef LOCALSIZE
+#define	LOCALSIZE	8
+#endif
 
 // opencl objects:
 cl_platform_id		Platform;
@@ -37,9 +37,9 @@ cl_command_queue	CmdQueue;
 //#define CSV
 
 
-// float			hA[MATW][MATW];
-// float			hB[MATW][MATW];
-// float			hC[MATW][MATW];
+float			hA[MATW][MATW];
+float			hB[MATW][MATW];
+float			hC[MATW][MATW];
 
 const char *		CL_FILE_NAME = { "proj06.cl" };
 
@@ -51,12 +51,9 @@ char *			Type( cl_device_type );
 void			Wait( cl_command_queue );
 
 
-int run( int MATW, int LOCALSIZE)
+int
+main( int argc, char *argv[ ] )
 {
-
-float			hA[MATW][MATW];
-float			hB[MATW][MATW];
-float			hC[MATW][MATW];
 
 #ifndef _OPENMP
         fprintf( stderr, "OpenMP is not enabled!\n" );
@@ -269,17 +266,7 @@ float			hC[MATW][MATW];
 	clReleaseMemObject(     dC  );
 
 	return 0;
-}
 
-
-
-int
-main( int argc, char *argv[ ] )
-{
-	int matrixWidth = 1024;
-	int localSize = 8;
-
-	return run(matrixWidth, localSize);
 }
 
 
