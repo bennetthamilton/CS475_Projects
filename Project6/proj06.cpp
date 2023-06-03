@@ -1,4 +1,6 @@
-// 1. Program header
+// Title: CS475 Project 6 - OpenCl Matrix Multiply
+// Name: Bennett Hamilton
+// Date: 6/3/23 
 
 #include <stdio.h>
 #include <math.h>
@@ -35,9 +37,9 @@ cl_command_queue	CmdQueue;
 //#define CSV
 
 
-float			hA[MATW][MATW];
-float			hB[MATW][MATW];
-float			hC[MATW][MATW];
+// float			hA[MATW][MATW];
+// float			hB[MATW][MATW];
+// float			hC[MATW][MATW];
 
 const char *		CL_FILE_NAME = { "proj06.cl" };
 
@@ -51,6 +53,10 @@ void			Wait( cl_command_queue );
 
 int run( int MATW, int LOCALSIZE)
 {
+
+float			hA[MATW][MATW];
+float			hB[MATW][MATW];
+float			hC[MATW][MATW];
 
 #ifndef _OPENMP
         fprintf( stderr, "OpenMP is not enabled!\n" );
@@ -121,7 +127,17 @@ int run( int MATW, int LOCALSIZE)
 	if( status != CL_SUCCESS )
 		fprintf( stderr, "clCreateBuffer failed (1)\n" );
 
-?????
+	cl_mem dB = clCreateBuffer( Context, CL_MEM_READ_ONLY,  bSize, NULL, &status );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clCreateBuffer failed (2)\n" );
+
+	cl_mem dMW = clCreateBuffer( Context, CL_MEM_READ_ONLY,  mwSize, NULL, &status );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clCreateBuffer failed (3)\n" );
+
+	cl_mem dC = clCreateBuffer( Context, CL_MEM_WRITE_ONLY, cSize, NULL, &status );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clCreateBuffer failed (4)\n" );
 
 	// 6. enqueue the 3 commands to write the data from the host buffers to the device buffers:
 
@@ -129,7 +145,13 @@ int run( int MATW, int LOCALSIZE)
 	if( status != CL_SUCCESS )
 		fprintf( stderr, "clEnqueueWriteBuffer failed (1)\n" );
 
-?????
+	status = clEnqueueWriteBuffer( CmdQueue, dB, CL_FALSE, 0, bSize, hB, 0, NULL, NULL );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clEnqueueWriteBuffer failed (2)\n" );
+
+	status = clEnqueueWriteBuffer( CmdQueue, dMW, CL_FALSE, 0, mwSize, &mw, 0, NULL, NULL );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clEnqueueWriteBuffer failed (3)\n" );
 
 	Wait( CmdQueue );
 
@@ -180,7 +202,21 @@ int run( int MATW, int LOCALSIZE)
 
 	// 10. setup the arguments to the kernel object:
 
-?????
+	status = clSetKernelArg( Kernel, 0, sizeof(cl_mem), &dA );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clSetKernelArg failed (1)\n" );
+
+	status = clSetKernelArg( Kernel, 1, sizeof(cl_mem), &dB );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clSetKernelArg failed (2)\n" );
+
+	status = clSetKernelArg( Kernel, 2, sizeof(cl_mem), &dMW );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clSetKernelArg failed (3)\n" );
+
+	status = clSetKernelArg( Kernel, 3, sizeof(cl_mem), &dC );
+	if( status != CL_SUCCESS )
+		fprintf( stderr, "clSetKernelArg failed (4)\n" );
 
 
 	// 11. enqueue the kernel object for execution:
@@ -245,6 +281,8 @@ main( int argc, char *argv[ ] )
 
 	return run(matrixWidth, localSize);
 }
+
+
 
 
 // wait until all queued tasks have taken place:
