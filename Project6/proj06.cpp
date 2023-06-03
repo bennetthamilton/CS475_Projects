@@ -34,7 +34,7 @@ cl_command_queue	CmdQueue;
 
 // do we want to print in csv file format?
 
-//#define CSV
+#define CSV
 
 
 float			hA[MATW][MATW];
