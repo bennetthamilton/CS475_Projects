@@ -35,6 +35,7 @@ cl_command_queue	CmdQueue;
 // do we want to print in csv file format?
 
 #define CSV
+// ./proj06 >& proj06.csv
 
 
 float			hA[MATW][MATW];
